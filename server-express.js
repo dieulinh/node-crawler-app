@@ -1,7 +1,9 @@
 const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
-const { getUsers, createUser } = require('./server/users');
+const passport = require('passport');
+const session = require('express-session');
+const { getUsers, createUser, authenticateUser } = require('./server/users');
 var app = express();
 var port = process.env.PORT|3001;
 
@@ -34,6 +36,7 @@ app.get('/', (reques, response) => {
 
 app.get('/users', getUsers);
 app.post('/users', createUser);
+app.post('/user_auth', authenticateUser);
 app.get('/quotes', (req, res) => {
   res.json(quotes);
 });
